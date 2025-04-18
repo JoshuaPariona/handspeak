@@ -1,0 +1,12 @@
+// run the dev app, you need at least one device connected 
+// (emulator, simulator, mobile) Flutter will automatically recognize it.
+flutter run
+
+// get dependencies
+flutter pub get
+
+// build flutter app into Android apk
+flutter build apk
+
+// build the native splash in android and ios
+dart run flutter_native_splash:create --path=flutter_native_splash.yaml
