@@ -2,8 +2,13 @@
 // (emulator, simulator, mobile) Flutter will automatically recognize it.
 flutter run
 
-// get dependencies
+// get dependencies, dependencies are in pubspec.yaml
 flutter pub get
+
+// add dependencies, see pub.dev page
+flutter pub add <dep1> <dep2> <...>
+flutter pub add <dep1>:<version1>
+flutter pub add dev:<dep>:<version>
 
 // build flutter app into Android apk
 flutter build apk
