@@ -5,40 +5,27 @@ import 'package:handspeak/screens/screens.dart';
 import 'package:handspeak/data/routes.dart';
 
 final GoRouter mainRouter = GoRouter(
-  initialLocation: AppRoutes.welcome.path,
+  initialLocation: AppRoutes.splash.path,
   routes: [
+    GoRoute(
+      path: AppRoutes.splash.path,
+      name: AppRoutes.splash.name,
+      builder: (context, state) => SplashScreen(), 
+    ),
     GoRoute(
       path: AppRoutes.welcome.path,
       name: AppRoutes.welcome.name,
-      builder: (context, state) => WelcomeScreen(),
-      redirect: (context, state) {
-        if (true) {
-          return null;
-        }
-        return AppRoutes.dashboard.translate.path;
-      }
+      builder: (context, state) => const WelcomeScreen(),
     ),
     GoRoute(
       path: AppRoutes.login.path,
       name: AppRoutes.login.name,
-      builder: (context, state) => LoginScreen(),
-      redirect: (context, state) {
-        if (true) {
-          return null;
-        }
-        return AppRoutes.dashboard.translate.path;
-      }
+      builder: (context, state) => const LoginScreen(),
     ),
     GoRoute(
       path: AppRoutes.signin.path,
       name: AppRoutes.signin.name,
       builder: (context, state) => SigninScreen(),
-      redirect: (context, state) {
-        if (true) {
-          return null;
-        }
-        return AppRoutes.dashboard.translate.path;
-      }
     ),
     GoRoute(
       path: AppRoutes.dashboard.path,

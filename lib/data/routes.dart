@@ -1,4 +1,5 @@
 abstract class AppRoutes {
+  static final AppRoute splash = _AppRoute("/", "splash");
   static final AppRoute welcome = _AppRoute("/welcome", "welcome");
   static final AppRoute signin = _AppRoute("/signin", "signin");
   static final AppRoute login = _AppRoute("/login", "login");
