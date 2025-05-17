@@ -11,7 +11,6 @@ abstract class AppDashboardRoutes {
   String get name;
   AppRoute get translate;
   AppRoute get learn;
-  AppRoute get store;
   AppRoute get profile;
 }
 
@@ -24,8 +23,6 @@ class _AppDashboardRoutes extends AppDashboardRoutes {
   AppRoute get translate => _AppRoute("$path/translate", "translate");
   @override
   AppRoute get learn => _AppRoute("$path/learn", "learn");
-  @override
-  AppRoute get store => _AppRoute("$path/store", "store");
   @override
   AppRoute get profile => _AppRoute("$path/profile", "profile");
 }

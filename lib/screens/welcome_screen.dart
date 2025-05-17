@@ -9,7 +9,7 @@ class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF66C3E0),
+      backgroundColor: AppColor.primary,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
@@ -65,7 +65,7 @@ class WelcomeScreen extends StatelessWidget {
                         style: TextStyle(
                           fontFamily: 'Poppins',
                           fontSize: 16,
-                          color: Colors.white,
+                          color: AppColor.onPrimary,
                         ),
                       ),
                     ),

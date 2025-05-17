@@ -19,6 +19,13 @@ dependencies:
   intl: ^0.19.0
   shared_preferences: ^2.5.3
   permission_handler: ^12.0.0+1
+  firebase_core: ^3.13.0
+  firebase_auth: ^5.5.3
+  cloud_firestore: ^5.6.7
+  image_picker: ^0.8.7
+  firebase_storage: ^12.4.5
+  google_sign_in: ^6.2.0
+  camera: ^0.11.1
 
 dev_dependencies:
   flutter_test:
@@ -30,6 +37,13 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/
+    - assets/images/registro_ok.png
+    - assets/images/alfabeto.png
+    - assets/images/animales.png
+    - assets/images/comida.png
+    - assets/images/google.png
+    - assets/images/avatars/avatar1.png
+    - assets/images/avatars/avatar2.png
     - assets/fonts/
   fonts:
     - family: Poppins

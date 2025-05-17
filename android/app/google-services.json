@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "798236251436",
+    "project_id": "handspeakfirebase-1b1f7",
+    "storage_bucket": "handspeakfirebase-1b1f7.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:798236251436:android:47220051ff7bc3a724c889",
+        "android_client_info": {
+          "package_name": "com.majornuckcracker.handspeak"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAhNPcs7TDCSijKnP-XDVmwZqOLw8D48RM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
