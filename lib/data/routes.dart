@@ -12,6 +12,8 @@ abstract class AppDashboardRoutes {
   AppRoute get translate;
   AppRoute get learn;
   AppRoute get profile;
+  AppRoute get camera;   // nueva
+  AppRoute get history;  // nueva
 }
 
 class _AppDashboardRoutes extends AppDashboardRoutes {
@@ -25,6 +27,10 @@ class _AppDashboardRoutes extends AppDashboardRoutes {
   AppRoute get learn => _AppRoute("$path/learn", "learn");
   @override
   AppRoute get profile => _AppRoute("$path/profile", "profile");
+  @override
+  AppRoute get camera => _AppRoute("$path/camera", "camera");     // nueva
+  @override
+  AppRoute get history => _AppRoute("$path/history", "history");  // nueva
 }
 
 abstract class AppRoute {
