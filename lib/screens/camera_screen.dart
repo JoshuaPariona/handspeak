@@ -1,6 +1,5 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:handspeak/data/colors.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class CameraScreen extends StatefulWidget {
@@ -68,7 +67,7 @@ class _CameraScreenState extends State<CameraScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColor.primary, // Fondo celeste
+      backgroundColor: const Color(0xFF126E82), // Fondo celeste
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

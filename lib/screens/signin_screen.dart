@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:handspeak/data/colors.dart';
 import 'package:handspeak/data/routes.dart';
 
 class SigninScreen extends StatefulWidget {
@@ -63,7 +62,7 @@ class _SigninScreenState extends State<SigninScreen> {
                     },
                     child: const Text(
                       "Ir al inicio",
-                      style: TextStyle(color: AppColor.onPrimary, fontWeight: FontWeight.bold),
+                      style: TextStyle(color: const Color(0xFFFFFFFF), fontWeight: FontWeight.bold),
                     ),
                   ),
                 ),
@@ -120,10 +119,10 @@ class _SigninScreenState extends State<SigninScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColor.primary,
+      backgroundColor: const Color(0xFF6EC6E9),
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 32.0),
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
           child: Column(
             children: [
               Align(
@@ -133,38 +132,38 @@ class _SigninScreenState extends State<SigninScreen> {
                   child: const Text(
                     "← Volver",
                     style: TextStyle(
-                      color: AppColor.text,
+                      color: const Color(0xFF003366),
                       fontSize: 14,
                     ),
                   ),
                 ),
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 2),
               CircleAvatar(
                 radius: 50,
                 backgroundImage: const AssetImage("assets/images/welcome_girl.png"),
                 backgroundColor: Colors.transparent,
               ),
-              const SizedBox(height: 24),
+              const SizedBox(height: 12),
               const Text(
                 "¡Te damos la bienvenida!",
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
-                  color: AppColor.onPrimary,
+                  color: const Color(0xFF003366),
                 ),
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 2),
               const Text(
                 "Registrate para aprender lenguaje de señas.",
                 textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.white70),
+                style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
               ),
-              const SizedBox(height: 32),
+              const SizedBox(height: 28),
               Container(
                 padding: const EdgeInsets.all(24),
                 decoration: BoxDecoration(
-                  color: AppColor.onPrimary,
+                  color: Colors.white,
                   borderRadius: BorderRadius.circular(24),
                   boxShadow: [
                     BoxShadow(
@@ -178,7 +177,7 @@ class _SigninScreenState extends State<SigninScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text("Nombre"),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 4),
                     TextField(
                       controller: nameController,
                       decoration: InputDecoration(
@@ -190,9 +189,9 @@ class _SigninScreenState extends State<SigninScreen> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: 4),
                     const Text("Correo electrónico"),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 4),
                     TextField(
                       controller: emailController,
                       keyboardType: TextInputType.emailAddress,
@@ -205,9 +204,9 @@ class _SigninScreenState extends State<SigninScreen> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: 4),
                     const Text("Contraseña"),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 4),
                     TextField(
                       controller: passwordController,
                       obscureText: _obscurePassword,
@@ -228,9 +227,9 @@ class _SigninScreenState extends State<SigninScreen> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: 4),
                     const Text("Selecciona tu avatar"),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 4),
                     GridView.builder(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
@@ -254,7 +253,7 @@ class _SigninScreenState extends State<SigninScreen> {
                           child: Container(
                             decoration: BoxDecoration(
                               border: Border.all(
-                                color: isSelected ? AppColor.accent : Colors.transparent,
+                                color: isSelected ? const Color(0xFF126E82) : Colors.transparent,
                                 width: 3,
                               ),
                               shape: BoxShape.circle,
@@ -269,25 +268,25 @@ class _SigninScreenState extends State<SigninScreen> {
                         );
                       },
                     ),
-                    const SizedBox(height: 24),
+                    const SizedBox(height: 12),
                     SizedBox(
                       width: double.infinity,
                       height: 48,
                       child: ElevatedButton(
                         onPressed: _isLoading ? null : _register,
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColor.accent,
+                          backgroundColor: const Color(0xFF126E82),
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                         ),
                         child: _isLoading
-                            ? const CircularProgressIndicator(color: AppColor.onPrimary)
-                            : const Text("Registrarse", style: TextStyle(fontWeight: FontWeight.bold, color: AppColor.onPrimary)),
+                            ? const CircularProgressIndicator(color: Color(0xFFFFFFFF))
+                            : const Text("Registrarse", style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFFFFFFF))),
                       ),
                     ),
                   ],
                 ),
               ),
-              const SizedBox(height: 24),
+              const SizedBox(height: 12),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -304,7 +303,7 @@ class _SigninScreenState extends State<SigninScreen> {
                   ),
                 ],
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 4),
             ],
           ),
         ),

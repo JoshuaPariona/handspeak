@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:handspeak/data/colors.dart';
+// import 'package:handspeak/data/colors.dart';
 import 'package:handspeak/data/routes.dart';
 
 class WelcomeScreen extends StatelessWidget {
@@ -9,7 +9,7 @@ class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColor.primary,
+      backgroundColor: const Color(0xFF6EC6E9),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
@@ -65,7 +65,7 @@ class WelcomeScreen extends StatelessWidget {
                         style: TextStyle(
                           fontFamily: 'Poppins',
                           fontSize: 16,
-                          color: AppColor.onPrimary,
+                          color: const Color(0xFFFFFFFF),
                         ),
                       ),
                     ),

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:handspeak/data/colors.dart';
-import 'package:handspeak/data/routes.dart';
 import 'package:go_router/go_router.dart';
+// import 'package:handspeak/data/colors.dart';
+import 'package:handspeak/data/routes.dart';
 
 class TranslateScreen extends StatefulWidget {
   const TranslateScreen({Key? key}) : super(key: key);
@@ -13,91 +11,75 @@ class TranslateScreen extends StatefulWidget {
 }
 
 class _TranslateScreenState extends State<TranslateScreen> {
-  String? _avatarUrl;
 
   @override
   void initState() {
     super.initState();
-    _loadUserAvatar();
-  }
-
-  Future<void> _loadUserAvatar() async {
-    final user = FirebaseAuth.instance.currentUser;
-    if (user != null) {
-      final snapshot = await FirebaseFirestore.instance
-          .collection('users')
-          .doc(user.uid)
-          .get();
-      setState(() {
-        _avatarUrl = snapshot.data()?['avatar'];
-      });
-    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColor.primary,
+      backgroundColor: const Color(0xFF6EC6E9),
       body: SafeArea(
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+            // Parte superior con fondo blanco
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text('Volver', style: TextStyle(color: Colors.transparent)),
-                  Row(
-                    children: [
-                      IconButton(
-                        icon: const Icon(Icons.history, color: Colors.white),
-                        onPressed: () {
-                          context.go(AppRoutes.dashboard.history.path);
-                        },
-                      ),
-                      IconButton(
-                        icon: const Icon(Icons.camera_alt, color: Colors.white),
-                        onPressed: () {
-                          context.pushNamed(AppRoutes.dashboard.camera.name);
-                        },
-                      ),
-                    ],
-                  )
+                  GestureDetector(
+                    onTap: () {
+                      // Acción para historial
+                    },
+                    child: Image.asset(
+                      'assets/images/history_icon.png',
+                      width: 50,
+                      height: 50,
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      context.pushNamed(AppRoutes.dashboard.camera.name);
+                    },
+                    child: Image.asset(
+                      'assets/images/camera_icon.png',
+                      width: 60,
+                      height: 60,
+                    ),
+                  ),
                 ],
               ),
             ),
-            const SizedBox(height: 30),
-            
-            if (_avatarUrl != null)
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Center(
-                  child: AspectRatio(
-                    aspectRatio: 4 / 5,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(16),
-                      child: Image.network(
-                        _avatarUrl!,
-                        fit: BoxFit.contain,
-                        width: double.infinity,
-                        height: double.infinity,
-                        filterQuality: FilterQuality.high,
-                        errorBuilder: (context, error, stackTrace) => const Icon(Icons.broken_image, size: 100, color: Colors.white),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
 
             const SizedBox(height: 20),
 
+            // Texto con estilo y color similar al diseño
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: TextField(
-                decoration: InputDecoration(
-                  hintText: 'Escribe aquí...',
-                  fillColor: Colors.white,
-                  filled: true,
+              padding: const EdgeInsets.symmetric(horizontal: 24.0),
+              child: Text(
+                'Empieza a explorar todas las\nfuncionalidades que “Handspeak”\ntiene para ti',
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  color: Color(0xFF044056),
+                  fontSize: 16,
+                  fontWeight: FontWeight.w800,
+                ),
+              ),
+            ),
+
+            const SizedBox(height: 30),
+
+            // Imagen
+            Expanded(
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Image.asset(
+                  'assets/images/translate_girl.png',
+                  width: 220,
+                  fit: BoxFit.contain,
                 ),
               ),
             ),

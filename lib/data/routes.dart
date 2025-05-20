@@ -12,8 +12,8 @@ abstract class AppDashboardRoutes {
   AppRoute get translate;
   AppRoute get learn;
   AppRoute get profile;
-  AppRoute get camera;   // nueva
-  AppRoute get history;  // nueva
+  AppRoute get camera;
+  AppRoute get history;
 }
 
 class _AppDashboardRoutes extends AppDashboardRoutes {

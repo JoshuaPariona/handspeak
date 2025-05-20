@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:handspeak/data/colors.dart';
 import 'package:handspeak/data/routes.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -54,7 +53,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   },
                   child: const Text(
                     "Continuar",
-                    style: TextStyle(color: AppColor.onPrimary, fontWeight: FontWeight.bold),
+                    style: TextStyle(color: const Color(0xFFFFFFFF), fontWeight: FontWeight.bold),
                   ),
                 ),
               ),
@@ -92,7 +91,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColor.primary,
+      backgroundColor: const Color(0xFF6EC6E9),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
@@ -125,20 +124,20 @@ class _LoginScreenState extends State<LoginScreen> {
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
-                  color: AppColor.onPrimary,
+                  color: const Color(0xFF003366),
                 ),
               ),
               const SizedBox(height: 8),
               const Text(
                 "Inicia sesión para aprender lenguaje de señas.",
                 textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.white70),
+                style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
               ),
               const SizedBox(height: 32),
               Container(
                 padding: const EdgeInsets.all(24),
                 decoration: BoxDecoration(
-                  color: AppColor.onPrimary,
+                  color: const Color(0xFFFFFFFF),
                   borderRadius: BorderRadius.circular(24),
                 ),
                 child: Column(
@@ -196,12 +195,12 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                         child: _isLoading
-                            ? const CircularProgressIndicator(color: AppColor.onPrimary)
+                            ? const CircularProgressIndicator(color: Color(0xFFFFFFFF))
                             : const Text(
                                 "Iniciar sesión",
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  color: AppColor.onPrimary
+                                  color: Color(0xFFFFFFFF)
                                   ),
                               ),
                       ),
@@ -229,13 +228,13 @@ class _LoginScreenState extends State<LoginScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text("¿No tienes cuenta? ", style: TextStyle(color: AppColor.onPrimary)),
+                  const Text("¿No tienes cuenta? ", style: TextStyle(color: Colors.black)),
                   GestureDetector(
                     onTap: () => context.go(AppRoutes.signin.path),
                     child: const Text(
                       "Registrarse",
                       style: TextStyle(
-                        color: AppColor.onPrimary,
+                        color: const Color(0xFF126E82),
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -247,19 +246,6 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ),
       ),
-    );
-  }
-}
-class _SocialIcon extends StatelessWidget {
-  final IconData icon;
-  const _SocialIcon({required this.icon});
-
-  @override
-  Widget build(BuildContext context) {
-    return CircleAvatar(
-      backgroundColor: AppColor.onPrimary,
-      radius: 20,
-      child: Icon(icon, size: 26, color: Colors.black),
     );
   }
 }
