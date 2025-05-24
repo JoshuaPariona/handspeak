@@ -25,7 +25,7 @@ class LearnScreen extends StatelessWidget {
             Expanded(
               child: Center(
                 child: Column(
-                  mainAxisSize: MainAxisSize.min, // Centrado vertical
+                  mainAxisSize: MainAxisSize.min,
                   children: const [
                     _LearnCard(
                       imagePath: 'assets/images/alfabeto.png',
@@ -64,7 +64,7 @@ class _LearnCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 300, // Tamaño fijo para centralizar
+      width: 300,
       height: 100,
       decoration: BoxDecoration(
         color: Colors.white,

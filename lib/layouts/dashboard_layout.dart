@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:handspeak/data/routes.dart'; // Asegúrate de tener los nombres de ruta
+import 'package:handspeak/data/routes.dart';
 
 class DashboardLayout extends StatelessWidget {
   final Widget child;

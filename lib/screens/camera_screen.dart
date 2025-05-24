@@ -67,12 +67,11 @@ class _CameraScreenState extends State<CameraScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF6EC6E9), // Fondo celeste
+      backgroundColor: const Color(0xFF6EC6E9),
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Botón "Volver"
             TextButton(
               onPressed: () {
                 if (_isCameraActive) {
@@ -122,7 +121,6 @@ class _CameraScreenState extends State<CameraScreen> {
 
             const Spacer(),
 
-            // Botón para cancelar cámara si está activa
             if (_isCameraActive)
               Center(
                 child: ElevatedButton.icon(

@@ -89,7 +89,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   setState(() {
                     avatarUrl = path;
                   });
-                  Navigator.pop(context); // Cierra el modal
+                  Navigator.pop(context);
                 },
                 child: CircleAvatar(
                   backgroundImage: AssetImage(path),

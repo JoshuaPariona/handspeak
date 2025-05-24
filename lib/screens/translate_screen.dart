@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-// import 'package:handspeak/data/colors.dart';
 import 'package:handspeak/data/routes.dart';
 
 class TranslateScreen extends StatefulWidget {
@@ -24,7 +23,6 @@ class _TranslateScreenState extends State<TranslateScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            // Parte superior con fondo blanco
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
               child: Row(
@@ -56,7 +54,6 @@ class _TranslateScreenState extends State<TranslateScreen> {
 
             const SizedBox(height: 20),
 
-            // Texto con estilo y color similar al diseño
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
               child: Text(
@@ -72,7 +69,6 @@ class _TranslateScreenState extends State<TranslateScreen> {
 
             const SizedBox(height: 30),
 
-            // Imagen
             Expanded(
               child: Align(
                 alignment: Alignment.bottomCenter,

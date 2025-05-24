@@ -28,6 +28,11 @@ final GoRouter mainRouter = GoRouter(
       builder: (context, state) => SigninScreen(),
     ),
     GoRoute(
+      path: AppRoutes.avatarPicker.path,
+      name: AppRoutes.avatarPicker.name,
+      builder: (context, state) => AvatarPickerScreen(),
+    ),
+    GoRoute(
       path: AppRoutes.dashboard.path,
       name: AppRoutes.dashboard.name,
       builder: (context, state) => Placeholder(),
@@ -56,7 +61,7 @@ final GoRouter mainRouter = GoRouter(
         // GoRoute(
         //   path: AppRoutes.dashboard.history.path,
         //   name: AppRoutes.dashboard.history.name,
-        //   builder: (context, state) => HistoryScreen(), // NUEVO
+        //   builder: (context, state) => HistoryScreen(),
         // ),
       ],
     ),

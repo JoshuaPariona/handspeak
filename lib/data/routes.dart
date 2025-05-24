@@ -3,6 +3,8 @@ abstract class AppRoutes {
   static final AppRoute welcome = _AppRoute("/welcome", "welcome");
   static final AppRoute signin = _AppRoute("/signin", "signin");
   static final AppRoute login = _AppRoute("/login", "login");
+  static final AppRoute avatarPicker = _AppRoute("/avatar-picker", "avatar-picker");
+  static final AppRoute avatar = _AppRoute("/avatar", "avatar");
   static final AppDashboardRoutes dashboard = _AppDashboardRoutes();
 }
 
@@ -28,9 +30,9 @@ class _AppDashboardRoutes extends AppDashboardRoutes {
   @override
   AppRoute get profile => _AppRoute("$path/profile", "profile");
   @override
-  AppRoute get camera => _AppRoute("$path/camera", "camera");     // nueva
+  AppRoute get camera => _AppRoute("$path/camera", "camera");
   @override
-  AppRoute get history => _AppRoute("$path/history", "history");  // nueva
+  AppRoute get history => _AppRoute("$path/history", "history");
 }
 
 abstract class AppRoute {

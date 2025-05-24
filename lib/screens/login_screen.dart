@@ -209,22 +209,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               const SizedBox(height: 32),
-              // const Text(
-              //   "O continúa con",
-              //   style: TextStyle(color: AppColor.onPrimary70),
-              // ),
-              // const SizedBox(height: 16),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.center,
-              //   children: const [
-              //     _SocialIcon(icon: Icons.g_mobiledata),
-              //     SizedBox(width: 24),
-              //     _SocialIcon(icon: Icons.facebook),
-              //     SizedBox(width: 24),
-              //     _SocialIcon(icon: Icons.apple),
-              //   ],
-              // ),
-              // const SizedBox(height: 32),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

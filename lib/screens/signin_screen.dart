@@ -3,6 +3,9 @@ import 'package:go_router/go_router.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:handspeak/data/routes.dart';
+import 'package:handspeak/screens/avatar_picker_screen.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+
 
 class SigninScreen extends StatefulWidget {
   const SigninScreen({super.key});
@@ -84,8 +87,19 @@ class _SigninScreenState extends State<SigninScreen> {
 
       final user = userCredential.user;
       if (user != null) {
-        await _saveUserData(user); // 👉 Guarda los datos en Firestore
-        _showSuccessDialog();
+        await _saveUserData(user); // Guardamos nombre y email (sin avatar aún)
+
+        // Ir a seleccionar avatar
+        final selectedAvatar = await Navigator.push<String>(
+          context,
+          MaterialPageRoute(builder: (_) => AvatarPickerScreen()),
+        );
+
+        if (selectedAvatar != null) {
+          await _saveAvatar(user.uid, selectedAvatar); // 👈 Nuevo método
+
+          _showSuccessDialog(); // Luego muestra el popup de éxito
+        }
       }
     } on FirebaseAuthException catch (e) {
       String message = 'Ocurrió un error';
@@ -104,6 +118,28 @@ class _SigninScreenState extends State<SigninScreen> {
     }
   }
 
+  Future<void> _saveAvatar(String uid, String avatarPath) async {
+    final firestore = FirebaseFirestore.instance;
+    await firestore.collection('users').doc(uid).update({
+      'avatar': avatarPath,
+    });
+  }
+
+  void _selectAvatar() async {
+    final selected = await Navigator.push<String>(
+      context,
+      MaterialPageRoute(builder: (context) => AvatarPickerScreen()),
+    );
+
+    if (selected != null && mounted) {
+      setState(() {
+        selectedAvatar = selected;
+      });
+    }
+  }
+  
+
+
   Future<void> _saveUserData(User user) async {
     final firestore = FirebaseFirestore.instance;
 
@@ -111,9 +147,65 @@ class _SigninScreenState extends State<SigninScreen> {
       'uid': user.uid,
       'name': nameController.text.trim(),
       'email': user.email,
-      'avatar': selectedAvatar, // Ruta del avatar seleccionado
       'createdAt': FieldValue.serverTimestamp(),
     });
+  }
+
+  
+  Future<void> signInWithGoogle(BuildContext context) async {
+    try {
+      // Forzar selección de cuenta cerrando sesión previa
+      await GoogleSignIn().signOut(); 
+
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+      if (googleUser == null) return; // Cancelado por el usuario
+
+      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+
+      final userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
+      final user = userCredential.user;
+
+      // Verifica si el usuario ya existe en Firestore
+      final userDoc = await FirebaseFirestore.instance.collection('users').doc(user!.uid).get();
+
+      if (!userDoc.exists) {
+        await FirebaseFirestore.instance.collection('users').doc(user.uid).set({
+          'uid': user.uid,
+          'name': user.displayName ?? '',
+          'email': user.email,
+          'avatar': '', // Se elige en pantalla posterior
+          'createdAt': FieldValue.serverTimestamp(),
+        });
+
+        // Navega a elegir avatar
+        final selectedAvatar = await Navigator.push<String>(
+          context,
+          MaterialPageRoute(builder: (_) => AvatarPickerScreen()),
+        );
+
+        if (selectedAvatar != null) {
+          await FirebaseFirestore.instance.collection('users').doc(user.uid).update({
+            'avatar': selectedAvatar,
+          });
+
+          _showSuccessDialog(); // 👈 Mostrar popup de éxito
+          return;
+        }
+      } else {
+        // Si ya existe, redirige directo al dashboard
+        context.go(AppRoutes.dashboard.path);
+      }
+
+    } on FirebaseAuthException catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error al iniciar sesión con Google: ${e.message}')),
+      );
+    }
   }
 
   @override
@@ -177,7 +269,7 @@ class _SigninScreenState extends State<SigninScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text("Nombre"),
-                    const SizedBox(height: 4),
+                    const SizedBox(height: 8),
                     TextField(
                       controller: nameController,
                       decoration: InputDecoration(
@@ -189,9 +281,9 @@ class _SigninScreenState extends State<SigninScreen> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 4),
+                    const SizedBox(height: 8),
                     const Text("Correo electrónico"),
-                    const SizedBox(height: 4),
+                    const SizedBox(height: 8),
                     TextField(
                       controller: emailController,
                       keyboardType: TextInputType.emailAddress,
@@ -204,9 +296,9 @@ class _SigninScreenState extends State<SigninScreen> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 4),
+                    const SizedBox(height: 8),
                     const Text("Contraseña"),
-                    const SizedBox(height: 4),
+                    const SizedBox(height: 8),
                     TextField(
                       controller: passwordController,
                       obscureText: _obscurePassword,
@@ -227,48 +319,7 @@ class _SigninScreenState extends State<SigninScreen> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 4),
-                    const Text("Selecciona tu avatar"),
-                    const SizedBox(height: 4),
-                    GridView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: avatarList.length,
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 3,
-                        mainAxisSpacing: 12,
-                        crossAxisSpacing: 12,
-                        childAspectRatio: 1,
-                      ),
-                      itemBuilder: (context, index) {
-                        final avatar = avatarList[index];
-                        final isSelected = selectedAvatar == avatar;
-
-                        return GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              selectedAvatar = avatar;
-                            });
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                color: isSelected ? const Color(0xFF126E82) : Colors.transparent,
-                                width: 3,
-                              ),
-                              shape: BoxShape.circle,
-                            ),
-                            padding: const EdgeInsets.all(4),
-                            child: CircleAvatar(
-                              backgroundImage: AssetImage(avatar),
-                              radius: 36,
-                              backgroundColor: Colors.transparent,
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                    const SizedBox(height: 12),
+                    const SizedBox(height: 20),
                     SizedBox(
                       width: double.infinity,
                       height: 48,
@@ -283,10 +334,27 @@ class _SigninScreenState extends State<SigninScreen> {
                             : const Text("Registrarse", style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFFFFFFF))),
                       ),
                     ),
+                    SizedBox(
+                      width: double.infinity,
+                      height: 48,
+                      child: ElevatedButton.icon(
+                        icon: Image.asset('assets/images/google.png', height: 24),
+                        label: const Text(
+                          "Continuar con Google",
+                          style: TextStyle(color: Colors.black87, fontWeight: FontWeight.w600),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                          elevation: 2,
+                        ),
+                        onPressed: () => signInWithGoogle(context),
+                      ),
+                    ),
                   ],
                 ),
               ),
-              const SizedBox(height: 12),
+              const SizedBox(height: 48),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
