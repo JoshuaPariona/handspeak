@@ -67,7 +67,7 @@ class _CameraScreenState extends State<CameraScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF126E82), // Fondo celeste
+      backgroundColor: const Color(0xFF6EC6E9), // Fondo celeste
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
