@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:handspeak/router/main_router.dart';
-import 'package:handspeak/theme/light.dart';
-// import 'package:handspeak/data/colors.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:handspeak/firebase_options.dart';
@@ -21,7 +19,6 @@ class HandSpeak extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       title: 'HandSpeak',
-      theme: AppTheme.lightTheme,
       routerConfig: mainRouter,
       debugShowCheckedModeBanner: false,
       locale: const Locale('es'),

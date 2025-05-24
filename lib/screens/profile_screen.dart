@@ -1,5 +1,3 @@
-import 'dart:io';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -131,7 +129,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 24),
+                  const SizedBox(height: 10),
                   TextField(
                     controller: nameController,
                     decoration: InputDecoration(
@@ -140,7 +138,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       fillColor: Colors.white,
                     ),
                   ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 8),
                   TextField(
                     controller: aboutController,
                     maxLines: 3,
@@ -150,7 +148,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       fillColor: Colors.white,
                     ),
                   ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 8),
                   TextField(
                     controller: emailController,
                     readOnly: true,
@@ -163,7 +161,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   const Spacer(),
                   SizedBox(
                     width: double.infinity,
-                    height: 48,
+                    height: 32,
                     child: ElevatedButton(
                       onPressed: saveProfile,
                       style: ElevatedButton.styleFrom(

@@ -33,7 +33,7 @@ class DashboardLayout extends StatelessWidget {
     final currentIndex = _getCurrentIndex(context);
 
     return Scaffold(
-      appBar: AppBar(title: Text('Handspeak')),
+      appBar: AppBar(title: Text('Handspeak', style: TextStyle(color: Colors.blue)), backgroundColor: Colors.white),
       body: child,
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: currentIndex,

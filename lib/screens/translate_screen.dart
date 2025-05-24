@@ -1,143 +1,88 @@
-import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:handspeak/data/colors.dart';
-import 'package:permission_handler/permission_handler.dart';
+import 'package:go_router/go_router.dart';
+// import 'package:handspeak/data/colors.dart';
+import 'package:handspeak/data/routes.dart';
 
 class TranslateScreen extends StatefulWidget {
-  const TranslateScreen({super.key});
+  const TranslateScreen({Key? key}) : super(key: key);
 
   @override
   State<TranslateScreen> createState() => _TranslateScreenState();
 }
 
 class _TranslateScreenState extends State<TranslateScreen> {
-  CameraController? _cameraController;
-  bool _isCameraInitialized = false;
-  bool _isCameraActive = false;
-  String _translatedText = '';
 
   @override
-  void dispose() {
-    _cameraController?.dispose();
-    super.dispose();
-  }
-
-  Future<void> _initializeCameraWithPermission() async {
-    final status = await Permission.camera.request();
-    if (status.isGranted) {
-      await _initializeCamera();
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Permiso de cámara denegado')),
-      );
-    }
-  }
-
-  Future<void> _initializeCamera() async {
-    final cameras = await availableCameras();
-    final backCamera = cameras.firstWhere(
-      (camera) => camera.lensDirection == CameraLensDirection.back,
-      orElse: () => cameras.first,
-    );
-
-    _cameraController = CameraController(
-      backCamera,
-      ResolutionPreset.medium,
-      enableAudio: false,
-    );
-
-    await _cameraController!.initialize();
-
-    setState(() {
-      _isCameraInitialized = true;
-      _isCameraActive = true;
-    });
-  }
-
-  void _stopCamera() {
-    _cameraController?.dispose();
-    _cameraController = null;
-
-    setState(() {
-      _isCameraInitialized = false;
-      _isCameraActive = false;
-      _translatedText = '';
-    });
+  void initState() {
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColor.primary, // Fondo celeste
+      backgroundColor: const Color(0xFF6EC6E9),
       body: SafeArea(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Botón "Volver"
-            TextButton(
-              onPressed: () {
-                if (_isCameraActive) {
-                  _stopCamera();
-                } else {
-                  Navigator.pop(context);
-                }
-              },
-              child: const Text(
-                'Volver',
-                style: TextStyle(color: Colors.black),
-              ),
-            ),
-
-            Center(
-              child: Container(
-                margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                width: MediaQuery.of(context).size.width * 0.8,
-                height: MediaQuery.of(context).size.height * 0.5,
-                decoration: BoxDecoration(
-                  color: Colors.grey[300],
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: _isCameraInitialized
-                    ? ClipRRect(
-                        borderRadius: BorderRadius.circular(8),
-                        child: CameraPreview(_cameraController!),
-                      )
-                    : Center(
-                        child: ElevatedButton.icon(
-                          onPressed: _initializeCameraWithPermission,
-                          icon: const Icon(Icons.videocam),
-                          label: const Text("Iniciar Traducción"),
-                        ),
-                      ),
-              ),
-            ),
-
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-              child: const Text(
-                'Traducción en texto',
-                style: TextStyle(color: Colors.black, fontSize: 12),
-                textAlign: TextAlign.center,
-              ),
-            ),
-
-            const Spacer(),
-
-            // Botón para cancelar cámara si está activa
-            if (_isCameraActive)
-              Center(
-                child: ElevatedButton.icon(
-                  onPressed: _stopCamera,
-                  icon: const Icon(Icons.close),
-                  label: const Text('Cancelar Cámara'),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.red,
-                    foregroundColor: Colors.white,
+            // Parte superior con fondo blanco
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      // Acción para historial
+                    },
+                    child: Image.asset(
+                      'assets/images/history_icon.png',
+                      width: 50,
+                      height: 50,
+                    ),
                   ),
-                ),
+                  GestureDetector(
+                    onTap: () {
+                      context.pushNamed(AppRoutes.dashboard.camera.name);
+                    },
+                    child: Image.asset(
+                      'assets/images/camera_icon.png',
+                      width: 60,
+                      height: 60,
+                    ),
+                  ),
+                ],
               ),
+            ),
 
             const SizedBox(height: 20),
+
+            // Texto con estilo y color similar al diseño
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24.0),
+              child: Text(
+                'Empieza a explorar todas las\nfuncionalidades que “Handspeak”\ntiene para ti',
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  color: Color(0xFF044056),
+                  fontSize: 16,
+                  fontWeight: FontWeight.w800,
+                ),
+              ),
+            ),
+
+            const SizedBox(height: 30),
+
+            // Imagen
+            Expanded(
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Image.asset(
+                  'assets/images/translate_girl.png',
+                  width: 220,
+                  fit: BoxFit.contain,
+                ),
+              ),
+            ),
           ],
         ),
       ),
