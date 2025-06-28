@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'dart:ui' as ui;
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:handspeak/services/tts.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:firebase_ml_model_downloader/firebase_ml_model_downloader.dart';
 import 'package:tflite_flutter/tflite_flutter.dart';
@@ -69,7 +70,7 @@ class _CameraScreenState extends State<CameraScreen> {
   String _translatedText = '';
   Interpreter? interpreter;
   Timer? _timer;
-
+  final TTSService _tts = TTSService();
   final int inputSize = 224;
   final int channels = 3;
 
@@ -231,6 +232,7 @@ class _CameraScreenState extends State<CameraScreen> {
       }
 
       if (mounted) {
+        _tts.speech(classes[predIdx]);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Predicción: Clase ${classes[predIdx]}'),
