@@ -1,8 +1,11 @@
 import 'dart:async';
 import 'dart:io';
+import 'dart:math';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 import 'package:camera/camera.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:handspeak/services/tts.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -138,7 +141,8 @@ class _CameraScreenState extends State<CameraScreen> {
     );
 
     await _cameraController!.initialize();
-
+    
+    _timer?.cancel();
     _timer = Timer.periodic(
       const Duration(seconds: 5),
       (_) => _captureAndPredict(),
@@ -232,6 +236,7 @@ class _CameraScreenState extends State<CameraScreen> {
       }
 
       if (mounted) {
+        updateUserHistoryMap(classes[predIdx]);
         _tts.speech(classes[predIdx]);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -242,6 +247,41 @@ class _CameraScreenState extends State<CameraScreen> {
       }
     } catch (e) {
       print('Error en predicción: $e');
+    }
+  }
+
+  Future<void> updateUserHistoryMap(String text) async {
+    try {
+      final user = FirebaseAuth.instance.currentUser;
+      if (user == null) return;
+      final now = DateTime.now();
+      final dateStr =
+          '${now.year.toString().padLeft(4, '0')}-'
+          '${now.month.toString().padLeft(2, '0')}-'
+          '${now.day.toString().padLeft(2, '0')}';
+      int hour = now.hour;
+      final ampm = hour >= 12 ? 'pm' : 'am';
+      hour = hour % 12 == 0 ? 12 : hour % 12;
+      final minute = now.minute.toString().padLeft(2, '0');
+      final second = now.second.toString().padLeft(2, '0');
+      final timeStr = '$hour:$minute:$second $ampm';
+
+      final randomId = Random().nextInt(100000);
+      final fieldKey = '$text-$randomId';
+
+      final docRef = FirebaseFirestore.instance
+          .collection('users')
+          .doc(user.uid);
+
+      await docRef.set({
+        'history': {
+          dateStr: {fieldKey: timeStr},
+        },
+      }, SetOptions(merge: true));
+    } catch (e) {
+      print("--------------------------ErrorUpdateHistory--------------------");
+      print(e);
+      print("--------------------------ErrorUpdateHistory--------------------");
     }
   }
 

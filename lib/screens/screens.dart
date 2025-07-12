@@ -7,4 +7,4 @@ export 'package:handspeak/screens/profile_screen.dart';
 export 'package:handspeak/screens/camera_screen.dart';
 export 'package:handspeak/screens/learn_screen.dart';
 export 'package:handspeak/screens/avatar_picker_screen.dart';
-// export 'package:handspeak/screens/history_screen.dart';
+export 'package:handspeak/screens/history_screen.dart';

@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:handspeak/data/routes.dart';
 
 class TranslateScreen extends StatefulWidget {
-  const TranslateScreen({Key? key}) : super(key: key);
+  const TranslateScreen({super.key});
 
   @override
   State<TranslateScreen> createState() => _TranslateScreenState();
@@ -30,7 +30,7 @@ class _TranslateScreenState extends State<TranslateScreen> {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      // Acción para historial
+                       context.goNamed(AppRoutes.dashboard.history.name);
                     },
                     child: Image.asset(
                       'assets/images/history_icon.png',
@@ -40,7 +40,7 @@ class _TranslateScreenState extends State<TranslateScreen> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      context.pushNamed(AppRoutes.dashboard.camera.name);
+                      context.goNamed(AppRoutes.dashboard.camera.name);
                     },
                     child: Image.asset(
                       'assets/images/camera_icon.png',

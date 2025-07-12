@@ -11,8 +11,10 @@ class DashboardLayout extends StatelessWidget {
 
     if (location.contains(AppRoutes.dashboard.translate.path)) {
       return 0;
-    } else if (location.contains(AppRoutes.dashboard.profile.path)) {
+    } else if (location.contains(AppRoutes.dashboard.history.path)) {
       return 1;
+    } else if (location.contains(AppRoutes.dashboard.profile.path)) {
+      return 2;
     }
     return 0;
   }
@@ -23,6 +25,9 @@ class DashboardLayout extends StatelessWidget {
         context.go(AppRoutes.dashboard.translate.path);
         break;
       case 1:
+        context.go(AppRoutes.dashboard.history.path);
+        break;
+      case 2:
         context.go(AppRoutes.dashboard.profile.path);
         break;
     }
@@ -46,7 +51,8 @@ class DashboardLayout extends StatelessWidget {
             icon: Icon(Icons.translate),
             label: 'Traducir',
           ),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Perfil'),
+          BottomNavigationBarItem(icon: Icon(Icons.school), label: 'Historial'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Cuenta'),
         ],
       ),
     );

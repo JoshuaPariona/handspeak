@@ -10,7 +10,7 @@ final GoRouter mainRouter = GoRouter(
     GoRoute(
       path: AppRoutes.splash.path,
       name: AppRoutes.splash.name,
-      builder: (context, state) => SplashScreen(), 
+      builder: (context, state) => SplashScreen(),
     ),
     GoRoute(
       path: AppRoutes.welcome.path,
@@ -38,7 +38,7 @@ final GoRouter mainRouter = GoRouter(
       builder: (context, state) => Placeholder(),
       redirect: (context, state) {
         return AppRoutes.dashboard.translate.path;
-      }
+      },
     ),
     ShellRoute(
       builder: (context, state, child) => DashboardLayout(child),
@@ -58,11 +58,11 @@ final GoRouter mainRouter = GoRouter(
           name: AppRoutes.dashboard.camera.name,
           builder: (context, state) => CameraScreen(),
         ),
-        // GoRoute(
-        //   path: AppRoutes.dashboard.history.path,
-        //   name: AppRoutes.dashboard.history.name,
-        //   builder: (context, state) => HistoryScreen(),
-        // ),
+        GoRoute(
+          path: AppRoutes.dashboard.history.path,
+          name: AppRoutes.dashboard.history.name,
+          builder: (context, state) => HistoryScreen(),
+        ),
       ],
     ),
   ],
